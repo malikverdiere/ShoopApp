@@ -18,7 +18,7 @@ export class LoginPage {
 
   private userForm : FormGroup;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private nativeStorage: NativeStorage, private formBuilder: FormBuilder) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private nativeStorage: NativeStorage,) {
     this.userForm = new FormGroup({
       email: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required),
@@ -30,13 +30,14 @@ export class LoginPage {
   }
 
   onConect(){
-    this.nativeStorage.setItem('user', this.userForm.value.email).then(
-    () =>{
-      console.log('Stored item!');
-      this.navCtrl.push(TabsPage);
-    } ,
-    error => console.error('Error storing item', error)
-  );
+    // this.nativeStorage.setItem('user', this.userForm.value.email).then(
+    //   () =>{
+    //     console.log('Stored item!');
+    //   } ,
+    //   error => console.error('Error storing item', error)
+    // );
+    this.navCtrl.push(TabsPage);
+    
   }
 
 

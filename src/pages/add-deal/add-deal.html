@@ -1,18 +1,36 @@
-<!--
-  Generated template for the AddDealPage page.
 
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
   <ion-navbar>
-    <ion-title>add-deal</ion-title>
+    <ion-title>Ajouté un deal</ion-title>
   </ion-navbar>
-
 </ion-header>
 
 
 <ion-content padding>
+  <form [formGroup]="dealForm" (ngSubmit)="postDeal()" >
 
+      <h4>Titre</h4>
+        <ion-input type="text" formControlName="title"></ion-input>
+      <br>
+      <h4>Description</h4>
+        <ion-textarea  formControlName="description" rows="5"></ion-textarea>
+
+      <h2>Conditions</h2>
+        <ion-textarea formControlName="condition" rows="5"></ion-textarea>
+      <ion-list>
+      <ion-item>
+      <ion-label>Start Date</ion-label>
+      <ion-datetime displayFormat="DD MMM YYYY" formControlName="dateStart"></ion-datetime>
+    </ion-item>
+    <br>
+    <ion-item>
+      <ion-label>Ends Date</ion-label>
+      <ion-datetime displayFormat="MMM DD YYYY" formControlName="dateEnd"></ion-datetime>
+    </ion-item>
+    </ion-list>
+
+    <div padding>
+      <button type="submit" ion-button>Créer</button>
+    </div>
+  </form>
 </ion-content>

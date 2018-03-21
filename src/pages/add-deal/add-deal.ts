@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { PhotoLibrary } from '@ionic-native/photo-library';
-/**
- * Generated class for the AddDealPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import {Validators, FormGroup, FormControl } from '@angular/forms';
+import { DateTime } from 'ionic-angular/components/datetime/datetime';
+
+//Provider
+import { ApiServiceProvider } from '../../providers/api-service/api-service';
+
+//Models
+import {Deal} from '../../models/deal'
+
 
 @IonicPage()
 @Component({
@@ -14,33 +16,22 @@ import { PhotoLibrary } from '@ionic-native/photo-library';
   templateUrl: 'add-deal.html',
 })
 export class AddDealPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams, private photoLibrary: PhotoLibrary) {
-
-    this.photoLibrary.requestAuthorization().then(() => {
-      this.photoLibrary.getLibrary().subscribe({
-        next: library => {
-          library.forEach(function (libraryItem) {
-            console.log(libraryItem.id);          // ID of the photo
-            console.log(libraryItem.photoURL);    // Cross-platform access to photo
-            console.log(libraryItem.thumbnailURL);// Cross-platform access to thumbnail
-            console.log(libraryItem.fileName);
-            console.log(libraryItem.width);
-            console.log(libraryItem.height);
-            console.log(libraryItem.creationDate);
-            console.log(libraryItem.latitude);
-            console.log(libraryItem.longitude);
-            console.log(libraryItem.albumIds);    // array of ids of appropriate AlbumItem, only of includeAlbumsData was used
-          });
-        },
-        error: err => { console.log('could not get photos'); },
-        complete: () => { console.log('done getting photos'); }
-      });
-    })
-      .catch(err => console.log('permissions weren\'t granted'));
-
+  dealForm:FormGroup;
+  constructor(public navCtrl: NavController, public navParams: NavParams, public apiService:ApiServiceProvider) {
+    this.dealForm = new FormGroup({
+      title: new FormControl('', Validators.required),
+      description: new FormControl('', Validators.required),
+      condition: new FormControl('', Validators.required),
+      dateStart: new FormControl(DateTime, Validators.required),
+      dateEnd: new FormControl(DateTime, Validators.required),
+    });
   }
-    ionViewDidLoad() {
-      console.log('ionViewDidLoad AddDealPage');
-    }
+
+  ionViewDidLoad() {
+    
+  }
+
+  postDeal(){
+    let deal = new Deal(this.dealForm.value.title.value, this.dealForm.value.description.value,this.dealForm.value.condition.value,)
+  }
 }
