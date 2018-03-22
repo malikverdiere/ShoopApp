@@ -16,7 +16,10 @@ import {Deal} from '../../models/deal'
   templateUrl: 'add-deal.html',
 })
 export class AddDealPage {
+
   dealForm:FormGroup;
+  errorMessage:string;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public apiService:ApiServiceProvider) {
     this.dealForm = new FormGroup({
       title: new FormControl('', Validators.required),
@@ -32,6 +35,11 @@ export class AddDealPage {
   }
 
   postDeal(){
-    let deal = new Deal(this.dealForm.value.title.value, this.dealForm.value.description.value,this.dealForm.value.condition.value,)
+    if(this.dealForm.valid){
+      let deal = new Deal(this.dealForm.value.title.value, this.dealForm.value.description.value,this.dealForm.value.condition.value)
+    }else{
+      this.errorMessage = "Verifier le formulaire";
+    }
+
   }
 }

@@ -1,13 +1,16 @@
-
 <ion-header>
   <ion-navbar>
-    <ion-title>Ajouté un deal</ion-title>
+    <ion-title text-center>Ajouté un deal</ion-title>
   </ion-navbar>
 </ion-header>
 
 
-<ion-content padding>
-  <form [formGroup]="dealForm" (ngSubmit)="postDeal()" >
+<ion-content>
+  <form [formGroup]="dealForm" (ngSubmit)="postDeal()">
+    <div class="title-section-deal">
+      <h6 padding> Informations sur le deal</h6>
+    </div>
+
     <ion-list>
       <ion-item>
         <ion-label stacked>Titre</ion-label>
@@ -16,26 +19,43 @@
       <br>
       <ion-item>
         <ion-label stacked>Description</ion-label>
-        <ion-textarea  formControlName="description" rows="5"></ion-textarea>
+        <ion-textarea formControlName="description" rows="3"></ion-textarea>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>Conditions</ion-label>
+        <ion-textarea formControlName="condition" rows="3"></ion-textarea>
       </ion-item>
 
-    <ion-item>
-      <ion-label stacked>Conditions</ion-label>
-      <ion-textarea formControlName="condition" rows="5"></ion-textarea>
-    </ion-item>
-    <ion-item>
-      <ion-label stacked>Début</ion-label>
-      <ion-datetime displayFormat=" DD, MMM, YYYY HH:mm" [min]="minDate" formControlName="dateStart" local="fr"></ion-datetime>
-    </ion-item>
-    <br>
-    <ion-item>
-      <ion-label stacked>Fin</ion-label>
-      <ion-datetime displayFormat=" DD, MMM, YYYY HH:mm" formControlName="dateEnd"></ion-datetime>
-    </ion-item>
+      <div class="title-section-deal">
+        <h6 padding>durée</h6>
+      </div>
+
+      <ion-item>
+        <ion-label stacked>Début</ion-label>
+        <ion-datetime displayFormat=" DD, MMM, YYYY HH:mm" [min]="minDate" formControlName="dateStart" local="fr"></ion-datetime>
+      </ion-item>
+      <br>
+      <ion-item>
+        <ion-label stacked>Fin</ion-label>
+        <ion-datetime displayFormat=" DD, MMM, YYYY HH:mm" formControlName="dateEnd"></ion-datetime>
+      </ion-item>
+
+      <div class="title-section-deal">
+        <h6 padding>+ de critères</h6>
+      </div>
+
+      <ion-item>
+        <ion-label>Special étudiant</ion-label>
+        <ion-checkbox color="blue"></ion-checkbox>
+      </ion-item>
+      <ion-item>
+        <ion-label>Utilisable une fois</ion-label>
+        <ion-checkbox color="blue"></ion-checkbox>
+      </ion-item>
     </ion-list>
 
     <div padding>
-      <button type="submit" ion-button>Créer</button>
+      <button offset-1 col-10 type="submit" ion-button center>Créer</button>
     </div>
   </form>
 </ion-content>
