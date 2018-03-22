@@ -8,24 +8,29 @@
 
 <ion-content padding>
   <form [formGroup]="dealForm" (ngSubmit)="postDeal()" >
-
-      <h4>Titre</h4>
-        <ion-input type="text" formControlName="title"></ion-input>
-      <br>
-      <h4>Description</h4>
-        <ion-textarea  formControlName="description" rows="5"></ion-textarea>
-
-      <h2>Conditions</h2>
-        <ion-textarea formControlName="condition" rows="5"></ion-textarea>
-      <ion-list>
+    <ion-list>
       <ion-item>
-      <ion-label>Start Date</ion-label>
-      <ion-datetime displayFormat="DD MMM YYYY" formControlName="dateStart"></ion-datetime>
+        <ion-label stacked>Titre</ion-label>
+        <ion-input type="text" formControlName="title"></ion-input>
+      </ion-item>
+      <br>
+      <ion-item>
+        <ion-label stacked>Description</ion-label>
+        <ion-textarea  formControlName="description" rows="5"></ion-textarea>
+      </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Conditions</ion-label>
+      <ion-textarea formControlName="condition" rows="5"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Début</ion-label>
+      <ion-datetime displayFormat=" DD, MMM, YYYY HH:mm" [min]="minDate" formControlName="dateStart" local="fr"></ion-datetime>
     </ion-item>
     <br>
     <ion-item>
-      <ion-label>Ends Date</ion-label>
-      <ion-datetime displayFormat="MMM DD YYYY" formControlName="dateEnd"></ion-datetime>
+      <ion-label stacked>Fin</ion-label>
+      <ion-datetime displayFormat=" DD, MMM, YYYY HH:mm" formControlName="dateEnd"></ion-datetime>
     </ion-item>
     </ion-list>
 

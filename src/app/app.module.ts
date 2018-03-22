@@ -17,6 +17,10 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ApiServiceProvider } from '../providers/api-service/api-service';
 
+import localeFr from '@angular/common/locales/fr';
+import { registerLocaleData } from '@angular/common';
+
+registerLocaleData(localeFr, 'fr');
 @NgModule({
   declarations: [
     MyApp,
@@ -29,7 +33,10 @@ import { ApiServiceProvider } from '../providers/api-service/api-service';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp, {
+      monthNames: ['Janvier', 'Fevrier', 'Mars','Avril','Mail', 'Juin', 'Juillet', 'aout', 'septembre', 'Octobre', 'Novemvre', 'Décembre' ],
+      monthShortNames: ['jan', 'fev', 'mar', 'avr', 'mai','jui', 'juil', 'aou', 'sep','oct', 'nov', 'dec' ],
+    }),
     HttpClientModule
   ],
   bootstrap: [IonicApp],
