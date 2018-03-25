@@ -11,11 +11,15 @@ import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { AddDealPage } from '../pages/add-deal/add-deal';
 import { LoginPage } from '../pages/login/login';
-
+import { StorePage } from '../pages/store/store';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+
 import { ApiServiceProvider } from '../providers/api-service/api-service';
+import{AuthService} from '../providers/auth-service/auth-service'
+import {ConfigUrlApi} from '../Utils/ConfigUrlApi';
+
 
 import localeFr from '@angular/common/locales/fr';
 import { registerLocaleData } from '@angular/common';
@@ -29,7 +33,9 @@ registerLocaleData(localeFr, 'fr');
     HomePage,
     TabsPage,
     AddDealPage,
-    LoginPage
+    LoginPage,
+    StorePage
+    
   ],
   imports: [
     BrowserModule,
@@ -47,7 +53,8 @@ registerLocaleData(localeFr, 'fr');
     HomePage,
     TabsPage,
     AddDealPage,
-    LoginPage
+    LoginPage,
+    StorePage
   ],
   providers: [
     StatusBar,
@@ -55,7 +62,9 @@ registerLocaleData(localeFr, 'fr');
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     NativeStorage,
     ApiServiceProvider,
-    HttpClientModule
+    HttpClientModule,
+    AuthService,
+    ConfigUrlApi
   ]
 })
 export class AppModule {}

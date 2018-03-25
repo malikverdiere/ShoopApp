@@ -14,7 +14,8 @@
 
 
 <ion-content padding>
-  <form [formGroup]="userForm" (ngSubmit)="onConect()" >
+  <p *ngIf="errorMessage">{{errorMessage}}</p>
+  <form *ngIf="formLoginVisible" [formGroup]="userForm" (ngSubmit)="onConect()" >
     <ion-list>
       <ion-item>
         <ion-label>Email</ion-label>

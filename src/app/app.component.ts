@@ -18,15 +18,15 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
-    });
 
-    this.nativeStorage.getItem('user').then(
-      data =>{
-        this.rootPage = TabsPage;
-      },
-      error => {
-        this.rootPage = LoginPage;
-      }
-    );
+      this.nativeStorage.getItem('user').then(
+        data =>{
+          this.rootPage = TabsPage;
+        },
+        error => {
+          this.rootPage = LoginPage;
+        }
+      );
+    });
   }
 }
