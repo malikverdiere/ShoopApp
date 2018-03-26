@@ -37,11 +37,12 @@ export class StorePage {
   getStoreInfo(){
     this.nativeStorage.getItem('user').then(
       (data) =>{
-        let token = data['Token'];
-        this.message = data;
+        let user =  JSON.parse(data);
+        let token = user['access_token'];
         if(token){
           this.apiServiceProvider.getStoreForCurrentUser(token).subscribe(
             data =>{
+              this.message = data;
               this.store = new Store(data['id'], data['isValidateStore'], data['storeName'], data['firstNameDir'], data['lastNameDir'],  data['idCategorieStore'], data['address'], 
               data['zip'], data['city'], data['email'], data['zip'])
             }, 

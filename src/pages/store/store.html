@@ -16,6 +16,10 @@
 <ion-content padding>
   <p *ngIf="errorMessage">{{errorMessage}}</p>
   <p *ngIf="message">{{message}}</p>
-  
-  
+  <p *ngIf="!store.isValidateStore">Votre boutique est en cours de validations </p>
+  <p>{{store.storeName}}</p>
+  <p>{{store.firstNameDir}} {{store.lastNameDir}} </p>
+  <p>{{store.address}}</p>
+  <p>{{store.email}}</p>
+  <p>{{store.phone}}</p>
 </ion-content>

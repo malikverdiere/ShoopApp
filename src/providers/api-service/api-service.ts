@@ -18,10 +18,9 @@ export class ApiServiceProvider {
     
     let header = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
     var currentUser = JSON.parse(localStorage.getItem("currentUser"));
-    var token = 'Bearer ' + currentUser['access_token'];
-    header = header.append('Authorization',token);
+    var tokenBearer = 'Bearer ' + token;
+    header = header.append('Authorization',tokenBearer);
     let _options = { headers: header };
-    console.log(_options);
     return this.http.get(this.configUrlApi.GetStoreUrlApi, _options);
   }
 
