@@ -1,14 +1,26 @@
 <ion-header>
   <ion-navbar>
-    <ion-title text-center>Ajouter un deal</ion-title>
+    <ion-title text-center>Ajouter une offre</ion-title>
   </ion-navbar>
 </ion-header>
 
 
 <ion-content>
+  <div *ngIf="pictureURI; else templateButton">
+    <ion-card class="block">
+      <ion-icon name="trash" class="deleteIcon" (click)="deletePicture()"></ion-icon>
+      <img [src]="pictureURI">
+    </ion-card>
+  </div>
+  <ng-template #templateButton>
+    <div padding>
+      <button class="btn-add-picture" offset-3 col-6 *ngIf="picture == null" ion-button outline (click)="addPicture()">Ajouter une image</button>
+    </div>
+  </ng-template>
+
   <form [formGroup]="dealForm" (ngSubmit)="postDeal()">
     <div class="title-section-deal">
-      <h6 padding> Informations sur le deal</h6>
+      <h6 padding>Informations sur le deal</h6>
     </div>
     <ion-list>
       <ion-item>
@@ -28,33 +40,22 @@
       <div class="title-section-deal">
         <h6 padding>Durée</h6>
       </div>
-
       <ion-item>
-        <ion-label stacked>Début</ion-label>
-        <ion-datetime displayFormat=" DD, MMM, YYYY HH:mm" [min]="minDate" formControlName="dateStart" local="fr"></ion-datetime>
+        <ion-label>Début</ion-label>
+        <ion-datetime displayFormat=" DD, MMM, YYYY" min="{{DateIsoString}}" [(ngModel)]="DateIsoString" formControlName="dateStart"></ion-datetime>
       </ion-item>
       <br>
       <ion-item>
-        <ion-label stacked>Fin</ion-label>
-        <ion-datetime displayFormat=" DD, MMM, YYYY HH:mm" formControlName="dateEnd"></ion-datetime>
-      </ion-item>
-
-      <div class="title-section-deal">
-        <h6 padding>+ de critères</h6>
-      </div>
-
-      <ion-item>
-        <ion-label>Spécial étudiant</ion-label>
-        <ion-checkbox color="blue"></ion-checkbox>
-      </ion-item>
-      <ion-item>
-        <ion-label>Utilisable une seul fois</ion-label>
-        <ion-checkbox color="blue"></ion-checkbox>
+        <ion-label>Nbr de jours</ion-label>
+        <ion-select okText="Ok" cancelText="Annuler" formControlName="durationDeal" style="max-width:100%">
+          <ion-option *ngFor="let typePrice of  listPrice" [value]="typePrice.price">
+            {{ typePrice.text }}
+          </ion-option>
+        </ion-select>
       </ion-item>
     </ion-list>
-
     <div padding>
-      <button offset-1 col-10 type="submit" ion-button center>Créer</button>
+      <button offset-1 col-10 type="submit" ion-button center style="background-color:red">Créer</button>
     </div>
   </form>
 </ion-content>

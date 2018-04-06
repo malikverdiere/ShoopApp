@@ -4,6 +4,11 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { NativeStorage } from '@ionic-native/native-storage';
 import {HttpClientModule} from '@angular/common/http'
+import { PhotoLibrary } from '@ionic-native/photo-library';
+import { Camera } from '@ionic-native/camera';
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
+import { File } from '@ionic-native/file';
+import { DatePicker } from '@ionic-native/date-picker';
 
 import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
@@ -19,7 +24,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { ApiServiceProvider } from '../providers/api-service/api-service';
 import{AuthService} from '../providers/auth-service/auth-service'
 import {ConfigUrlApi} from '../Utils/ConfigUrlApi';
-
+import {UtilsListForms} from '../Utils/Utils-list-form';
 
 import localeFr from '@angular/common/locales/fr';
 import { registerLocaleData } from '@angular/common';
@@ -61,10 +66,16 @@ registerLocaleData(localeFr, 'fr');
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     NativeStorage,
+    Camera,
+    FileTransfer,
+    FileTransferObject,
+    PhotoLibrary,
     ApiServiceProvider,
     HttpClientModule,
     AuthService,
-    ConfigUrlApi
+    ConfigUrlApi,
+    UtilsListForms,
+    DatePicker
   ]
 })
 export class AppModule {}

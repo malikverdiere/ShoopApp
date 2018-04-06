@@ -4,22 +4,49 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
+<!-- <ion-header>
 
   <ion-navbar>
     <ion-title>Store</ion-title>
   </ion-navbar>
 
-</ion-header>
+</ion-header> -->
 
 
-<ion-content padding>
+<ion-content>
+
   <p *ngIf="errorMessage">{{errorMessage}}</p>
-  <p *ngIf="message">{{message}}</p>
-  <p *ngIf="!store.isValidateStore">Votre boutique est en cours de validations </p>
-  <p>{{store.storeName}}</p>
-  <p>{{store.firstNameDir}} {{store.lastNameDir}} </p>
-  <p>{{store.address}}</p>
-  <p>{{store.email}}</p>
-  <p>{{store.phone}}</p>
+
+  <div *ngIf="store">
+    <div class="header-account">
+      <img offset-4 col-4 src="../../asset/decat_logo.jpg" style="border-radius:50%;margin-top:20px">
+      <h4 style="color:white">{{store.storeName}}</h4>
+    </div>
+    <div>
+      <ion-card>
+
+        <ion-card-content>
+          <p>
+            <ion-icon name="person" class="icon-magic"></ion-icon>  {{store.firstNameDir}} {{store.lastNameDir}} </p>
+          <p>
+            <ion-icon name="pin" class="icon-magic"></ion-icon>  {{store.address}}</p>
+          <p>
+            <ion-icon name="mail" class="icon-magic"></ion-icon> {{store.email}}</p>
+          <p>
+            <ion-icon name="call" class="icon-magic"></ion-icon> {{store.phone}}</p>
+        </ion-card-content>
+
+      </ion-card>
+      <ion-card>
+          <ion-card-content>
+              <p>Contactez nous</p> 
+              <p>Astuce</p> 
+              <p style="color:red">Déconéxion</p> 
+          </ion-card-content>
+  
+        </ion-card>
+
+    </div>
+  </div>
+
 </ion-content>
