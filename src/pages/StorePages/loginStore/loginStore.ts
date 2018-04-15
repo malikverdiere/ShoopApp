@@ -41,16 +41,16 @@ export class LoginPage {
   }
 
   onConect() {
+    this.navCtrl.push(TabsPage);
     this.formLoginVisible = false;
     this.isRunning = true;
-    this.navCtrl.push(TabsPage);
     var user = this._authService.loginUser(this.userForm.value.email, this.userForm.value.password).subscribe(
       data => {
         if (data['access_token']) {
           this.apiService.getStoreForCurrentUser(data['access_token']).subscribe(
             data => {
               if (data[0]['Id']) {
-                this.nativeStorage.setItem('store', data[0]).then(
+                this.nativeStorage.setItem('store', JSON.stringify(data[0])).then(
                   () => {
                     console.log('Stored id Store!');
                   },

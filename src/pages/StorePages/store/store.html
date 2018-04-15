@@ -19,32 +19,30 @@
 
   <div *ngIf="store">
     <div class="header-account">
-      <img offset-4 col-4 src="../../asset/decat_logo.jpg" style="border-radius:50%;margin-top:20px">
-      <h4 style="color:white">{{store.storeName}}</h4>
+      <ion-icon name="create" class="editIcon" (click)="deletePicture()"></ion-icon>
+      <img offset-4 col-4 src="assets/decat_logo.jpg" style="border-radius:50%;margin-top:15px">
+      <h4 style="color:white; text-align:center">{{store.storeName}}</h4>
     </div>
     <div>
       <ion-card>
-
         <ion-card-content>
-          <p>
-            <ion-icon name="person" class="icon-magic"></ion-icon>  {{store.firstNameDir}} {{store.lastNameDir}} </p>
-          <p>
-            <ion-icon name="pin" class="icon-magic"></ion-icon>  {{store.address}}</p>
-          <p>
-            <ion-icon name="mail" class="icon-magic"></ion-icon> {{store.email}}</p>
-          <p>
-            <ion-icon name="call" class="icon-magic"></ion-icon> {{store.phone}}</p>
+          <p><ion-icon name="person" class="icon-magic"></ion-icon>  {{store.firstNameDir}} {{store.lastNameDir}} </p>
+          <br>
+          <p><ion-icon name="pin" class="icon-magic"></ion-icon>  {{store.address}} <br> {{store.zip}}  {{store.city}} </p>
+          <br>          
+          <p><ion-icon name="mail" class="icon-magic"></ion-icon> {{store.email}}</p>
+          <br>          
+          <p><ion-icon name="call" class="icon-magic"></ion-icon> {{store.phone}}</p>
         </ion-card-content>
-
       </ion-card>
+      <br>
       <ion-card>
           <ion-card-content>
               <p>Contactez nous</p> 
               <p>Astuce</p> 
-              <p style="color:red">Déconéxion</p> 
+              <p style="color:red">Déconnexion</p> 
           </ion-card-content>
         </ion-card>
-
     </div>
   </div>
 

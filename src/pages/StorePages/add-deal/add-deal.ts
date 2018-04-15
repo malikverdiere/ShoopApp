@@ -6,7 +6,8 @@ import { NativeStorage } from '@ionic-native/native-storage';
 import { DatePicker } from '@ionic-native/date-picker';
 
 //page
-import {LoginPage} from '../login/login'
+import { LoginPage } from '../login/login'
+import { TabsPage } from '../tabs/tabs'
 
 import { DateTime } from 'ionic-angular/components/datetime/datetime';
 import { PhotoLibrary } from '@ionic-native/photo-library';
@@ -21,7 +22,8 @@ import { ApiServiceProvider } from '../../providers/api-service/api-service';
 import { Deal } from '../../models/deal'
 
 //Utils
-import {UtilsListForms} from '../../Utils/Utils-list-form';
+import { UtilsListForms } from '../../Utils/Utils-list-form';
+import { Tab } from 'ionic-angular/components/tabs/tab';
 
 @IonicPage()
 @Component({
@@ -32,12 +34,12 @@ export class AddDealPage {
 
   DateIsoString: string;
   CurrentDate: Date;
-  minDateFinishDeal:Date;
-  minDateFinishDealIsoString:string;
-  listPrice:any = [];
+  minDateFinishDeal: Date;
+  minDateFinishDealIsoString: string;
+  listPrice: any = [];
   dealForm: FormGroup;
   errorMessage: string;
-  idStore:number;
+  idStore: number;
   pictureURI: any;
   token: string;
   pictureDisplay: string;
@@ -51,11 +53,11 @@ export class AddDealPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public apiService: ApiServiceProvider, private photoLibrary: PhotoLibrary,
     private camera: Camera, private alertCtrl: AlertController, private nativeStorage: NativeStorage, public loadingCtrl: LoadingController,
-     platform: Platform, private utilsListForms: UtilsListForms, private datePicker: DatePicker) {
+    platform: Platform, private utilsListForms: UtilsListForms, private datePicker: DatePicker) {
 
-      this.getDate();
-      
-      platform.ready().then(() => {
+    this.getDate();
+
+    platform.ready().then(() => {
       //   // Okay, so the platform is ready and our plugins are available.
       //   // Here you can do any higher level native things you might need.
       this.nativeStorage.getItem('user').then(
@@ -63,19 +65,20 @@ export class AddDealPage {
           let user = JSON.parse(data);
           this.token = user['access_token'];
         },
-         () => console.log("dde")
+        () => console.log("dde")
         //this.navCtrl.push(LoginPage)
       );
-      this.nativeStorage.getItem('idStore').then(
+      this.nativeStorage.getItem('store').then(
         (data) => {
-          this.idStore = data
+          let store = JSON.parse(data);
+          this.idStore = store['Id'];
           console.log(data);
         },
         () => console.log('noValabe')
       );
     });
     this.listPrice = this.utilsListForms.ListPriceTryFree;
-     
+
     this.dealForm = new FormGroup({
       title: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
@@ -84,8 +87,8 @@ export class AddDealPage {
       durationDeal: new FormControl(this.listPrice[3])
     });
     console.log(this.dealForm.value.dateStart);
-    
-    
+
+
   }
 
   addPicture() {
@@ -132,7 +135,7 @@ export class AddDealPage {
       allowEdit: true,
       quality: 100,
       targetWidth: 350,
-      targetHeight:350,
+      targetHeight: 350,
       sourceType: this.camera.PictureSourceType.SAVEDPHOTOALBUM
     }).then((imageData) => {
       this.pictureURI = imageData;
@@ -148,7 +151,7 @@ export class AddDealPage {
     this.pictureURI = null;
   }
 
-  getDate(){
+  getDate() {
     this.CurrentDate = new Date();
     this.CurrentDate.setDate(this.CurrentDate.getDate() + 1);
     this.DateIsoString = this.CurrentDate.toISOString();
@@ -156,7 +159,7 @@ export class AddDealPage {
 
   postDeal() {
     console.log(this.dealForm.value.dateStart);
-    
+
     let pictureName = "";
     let loading = this.loadingCtrl.create({
       content: 'Patientez...'
@@ -165,31 +168,45 @@ export class AddDealPage {
 
     if (this.dealForm.valid) {
       loading.present();
+      console.error(this.dealForm.value.durationDeal);
       let deal = new Deal(this.dealForm.value.title, this.dealForm.value.description, this.dealForm.value.condition,
-        this.dealForm.value.dateStart, this.dealForm.value.duration, this.idStore);
+        this.dealForm.value.dateStart, this.dealForm.value.dateStart, this.dealForm.value.durationDeal, this.idStore);
       this.apiService.postDeal(deal, this.token).subscribe(
         data => {
-          console.log(data);
-          deal.id = data['Id'];
-          pictureName = "picture_Deal_" + data['Id'] + "_" + data['NumberOfChanges'] + ".jpeg";
-          this.apiService.doImageUpload(this.pictureURI, pictureName).then((data) => {
-            console.log(data);
-            deal.urlPicture = pictureName;
-            this.apiService.PutDeal(deal, this.token).subscribe(
-              data => {
-                console.log(data);
-                loading.dismiss();
+          loading.dismiss();
+
+          let alert = this.alertCtrl.create({
+            title: 'Deal créer',
+            buttons: [
+              {
+                text: 'Ok',
+                handler: () => {
+                  this.navCtrl.push(TabsPage);
+                }
               },
-              error => {
-                console.error(error);
-                loading.dismiss();
-              }
-            )
-            loading.dismiss();
-          }, (error) => {
-            loading.dismiss();
-            console.log(error);
+            ],
           });
+          alert.present();
+
+          // pictureName = "picture_Deal_" + data['Id'] + "_" + data['NumberOfChanges'] + ".jpeg";
+          // this.apiService.doImageUpload(this.pictureURI, pictureName).then((data) => {
+          //   console.log(data);
+          //   deal.urlPicture = pictureName;
+          //   this.apiService.PutDeal(deal, this.token).subscribe(
+          //     data => {
+          //       console.log(data);
+          //       loading.dismiss();
+          //     },
+          //     error => {
+          //       console.error(error);
+          //       loading.dismiss();
+          //     }
+          //   )
+          //   loading.dismiss();
+          // }, (error) => {
+          //   loading.dismiss();
+          //   console.log(error);
+          // });
         },
         error => {
           loading.dismiss();
