@@ -35,7 +35,9 @@ export class StorePage {
         (data) =>{
           let user =  JSON.parse(data);
           this.token = user['access_token'];
-          this.getStoreInfo();
+          this.nativeStorage.getItem('store').then(
+            (data)
+          )
         },
         () => this.navCtrl.push(LoginPage)
       );

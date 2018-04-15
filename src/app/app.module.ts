@@ -14,9 +14,9 @@ import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
-import { AddDealPage } from '../pages/add-deal/add-deal';
-import { LoginPage } from '../pages/login/login';
-import { StorePage } from '../pages/store/store';
+import { AddDealPage } from '../pages/StorePages/add-deal/add-deal';
+import { LoginStorePage } from '../pages/StorePages/loginStore/LoginStore';
+import { StorePage } from '../pages/StorePages/store/store';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -38,7 +38,7 @@ registerLocaleData(localeFr, 'fr');
     HomePage,
     TabsPage,
     AddDealPage,
-    LoginPage,
+    LoginStorePage,
     StorePage
     
   ],
@@ -58,7 +58,7 @@ registerLocaleData(localeFr, 'fr');
     HomePage,
     TabsPage,
     AddDealPage,
-    LoginPage,
+    LoginStorePage,
     StorePage
   ],
   providers: [
